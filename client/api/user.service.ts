@@ -13,7 +13,7 @@ export const UserService = {
   },
   async loadHistorySSR(pageNumber: number = 0, cookies: string) {
     const response = await fetch(
-      `http://localhost:1337/api/v1/users/user_history?page_number=${pageNumber}`,
+      `http://server:1337/api/v1/users/user_history?page_number=${pageNumber}`,
       {
         credentials: 'include',
         headers: {

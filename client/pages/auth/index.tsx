@@ -50,7 +50,7 @@ export default function AuthPage() {
     if (passError === '' && emailError === '') {
       try {
         const { data } = await axios.post(
-          'http://localhost:5000/api/auth/login',
+          '/api/auth/login',
           {
             email: form.email,
             password: form.password,
