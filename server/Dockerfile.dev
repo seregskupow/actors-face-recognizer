@@ -1,0 +1,28 @@
+FROM node:16-alpine
+
+RUN apk add python3 make gcc g++ build-base cairo-dev pango-dev pkgconfig libjpeg-turbo-dev jpeg-dev giflib-dev
+
+ENV CHROME_BIN="/usr/bin/chromium-browser" \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN set -x \
+    && apk update \
+    && apk upgrade \
+    && apk add --no-cache \
+    udev \
+    ttf-freefont \
+    chromium \
+    && npm install puppeteer
+
+RUN npm install
+
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["npm", "run", "start:dev"]
