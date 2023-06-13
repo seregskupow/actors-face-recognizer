@@ -14,18 +14,6 @@ const axiosClient = axios.create({
   baseURL: 'http://localhost:5000',
 });
 
-// export interface LoginDTO {
-//   email: string;
-//   password: string;
-// }
-
-// export interface RegisterDTO {
-//   email: string;
-//   password: string;
-//   name: string;
-//   avatar: string;
-// }
-
 export interface IAuthState {
   authenticationLoading: boolean;
   loading: boolean;

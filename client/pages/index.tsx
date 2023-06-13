@@ -35,7 +35,7 @@ const Home: FC = () => {
       <div className='home-wrapper'>
         <h1 className='mb-10'>Recognize actors by photo</h1>
         <h3 className='mb-10'>over 1000 actors in our database</h3>
-        <Link href={loggedIn ? '/' : '/auth/login'}>
+        <Link href={loggedIn ? '/facematch' : '/auth/login'}>
           <a className='menu-link'>
             <AwesomeButton type='primary' size='auto' button-hover-pressure='3'>
               {loggedIn ? 'Recognize actor' : 'Authorize to start'}

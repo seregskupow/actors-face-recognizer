@@ -76,11 +76,8 @@ const History: FC<HistoryProps> = ({ serverData }) => {
     const { totalPages } = serverData;
 
     if (!currentPathName.includes(thisPagePathname)) return;
-    console.log({ Quer: query });
     if (query.page) {
       const page = parseInt(queryParamToString(query.page), 10);
-      console.log({ page });
-      console.log({ totalPages });
       if (page <= 0 || page > totalPages + 1) return;
       setCurrentPage(page - 1);
     }
@@ -88,7 +85,6 @@ const History: FC<HistoryProps> = ({ serverData }) => {
 
   useEffect(() => {
     error && setMessage({ msg: (error as AxiosError).message, type: 'error' });
-    console.log({ data });
   }, [error]);
   return (
     <div className={clsx(styles.Page)}>

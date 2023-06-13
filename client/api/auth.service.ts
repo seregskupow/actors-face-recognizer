@@ -33,6 +33,7 @@ export const AuthService = {
 	},
 	async checkAuthMiddleware(req: NextRequest) {
 		let isAuth: boolean = true;
+		console.log(req?.cookies)
 		await fetch('http://server:1337/api/v1/users/me', {
 			method: 'GET',
 			credentials: 'include',

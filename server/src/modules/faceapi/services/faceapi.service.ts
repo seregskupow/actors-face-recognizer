@@ -136,7 +136,6 @@ export class FaceapiService {
   }
 
   async fetchDescriptors(descriptors) {
-    //console.log(descriptors[0]);
     const fetchedDescriptors: Array<LabeledFaceDescriptors> = [];
     await descriptors.map((item, index) => {
       const arr = [];

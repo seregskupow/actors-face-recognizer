@@ -47,7 +47,7 @@ module.exports = withPlugins([withSvgr], {
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'http://server:1337/api/v1/:path*', // Proxy to Backend
+        destination: 'http://localhost:1337/api/v1/:path*', // Proxy to Backend
       },
     ];
   },

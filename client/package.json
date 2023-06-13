@@ -17,7 +17,7 @@
 		"google-map-react": "^2.1.10",
 		"gsap": "^3.9.1",
 		"lodash": "^4.17.21",
-		"next": "12.0.10",
+		"next": "^12.3.4",
 		"next-compose-plugins": "^2.2.1",
 		"next-redux-wrapper": "^7.0.5",
 		"next-svgr": "^0.0.2",

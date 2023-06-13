@@ -82,14 +82,19 @@ export class ActorService {
       const baseUrl = 'https://en.wikipedia.org/wiki/';
       const wikiData: parsedWikiActor[] = [];
       for (let i = 0; i < names.length; i++) {
-        const link = baseUrl + names[i];
-        const parsed: any = await parseOGMetatags(link);
-        if (parsed.title && parsed.image)
-          wikiData.push({
-            photo: parsed.image,
-            name: parsed.title.split('-')[0],
-            link,
-          });
+        try {
+          const link = baseUrl + names[i];
+          const parsed: any = await parseOGMetatags(link);
+          if (parsed.title && parsed.image)
+            wikiData.push({
+              photo: parsed.image,
+              name: parsed.title.split('-')[0],
+              link,
+            });
+        } catch (e) {
+          this.logger.log(e);
+          continue;
+        }
       }
       return wikiData;
     } catch (e) {
@@ -110,7 +115,7 @@ export class ActorService {
       const diff = moment.duration(documentLastUpdated.diff(today)).asDays();
       this.logger.log(`Document age is: ${diff} days`);
 
-      if (diff <= 5) {
+      if (diff <= 30) {
         actors.push(actorInDB);
         actorsToParse = actorsToParse.filter((name) => name !== names[i]);
       }
