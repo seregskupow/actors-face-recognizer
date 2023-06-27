@@ -22,11 +22,11 @@ export class UserHistoryService {
     return this.userHistoryRepository.deleteAll(userId);
   }
 
-  async getRecords(userId: string, pageNumber = 0, offset = 10) {
+  async getRecords(userId: string, pageNumber = 0, offset = 10)
+  {
     const totalCount = await this.userHistoryRepository.count(userId);
     const totalPages = Math.ceil(totalCount / offset);
     const currentPage = clamp(pageNumber, 0, totalPages - 1);
-
     const history = await this.userHistoryRepository.getRecords(
       userId,
       currentPage,

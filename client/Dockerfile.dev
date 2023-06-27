@@ -1,4 +1,5 @@
 FROM node:16-alpine
+RUN apk --no-cache add curl
 
 WORKDIR /app
 
@@ -8,7 +9,9 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+RUN rm -rf ./.next
+
+RUN npm run build:docker
 
 EXPOSE 3000
 

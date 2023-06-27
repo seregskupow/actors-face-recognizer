@@ -1,6 +1,7 @@
 const withPlugins = require('next-compose-plugins');
 const withSvgr = require('next-svgr');
 const path = require('path');
+const {webpack} = require("next/dist/compiled/webpack/webpack");
 /** @type {import('next').NextConfig} */
 module.exports = withPlugins([withSvgr], {
   reactStrictMode: true,
@@ -8,6 +9,9 @@ module.exports = withPlugins([withSvgr], {
     scrollRestoration: true,
   },
   webpack: (config) => {
+    config.plugins.push(
+        new webpack.EnvironmentPlugin(process.env)
+    );
     config.module.rules.push(
       {
         test: /\.(glb|gltf)$/,
@@ -17,7 +21,7 @@ module.exports = withPlugins([withSvgr], {
             options: {},
           },
         ],
-      }
+      },
       // {
       //   test: /\.svg$/,
       //   loader: 'svg-inline-loader',
@@ -47,7 +51,7 @@ module.exports = withPlugins([withSvgr], {
     return [
       {
         source: '/api/v1/:path*',
-        destination: 'http://localhost:1337/api/v1/:path*', // Proxy to Backend
+        destination: `${process.env.SERVER}/:path*`, // Proxy to Backend
       },
     ];
   },

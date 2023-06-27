@@ -17,6 +17,7 @@ import {
   UploadedFile,
   UseGuards,
   UseInterceptors,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { plainToClass } from 'class-transformer';
@@ -101,14 +102,15 @@ export class UserController {
   @UseGuards(AuthenticatedGuard)
   async getHistory(
     @Req() req: SessionRequest,
-    @Query('page_number') pageNumber: number,
+    @Query('page_number', ParseIntPipe) pageNumber: number,
     @Query('offset') offset?: number,
   ) {
-    if (pageNumber) {
+    const skip = offset ? Number(offset) : undefined;
+    if (pageNumber !== null || pageNumber !== undefined) {
       return await this.userHistoryService.getRecords(
         req.user._id,
         pageNumber,
-        offset,
+          skip,
       );
     }
     return '';

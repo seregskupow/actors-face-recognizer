@@ -1,18 +1,20 @@
 version: '3.8'
 
 services:
-#  client:
-#    build:
-#      context: ./client
-#      dockerfile: Dockerfile.dev
-#    ports:
-#      - "3000:3000"
-#    restart: always
-#    volumes:
-#      - ./client:/app
-#      - /app/node_modules
-#    depends_on:
-#      - server
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - server
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:3000 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   server:
     build:
@@ -23,11 +25,13 @@ services:
     restart: always
     environment:
       - MONGO_URL_DEV=mongodb://database:27017/FaceRecognitionLocal
-    volumes:
-      - ./server:/app
-      - /app/node_modules
     depends_on:
       - database
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:1337/healthcheck || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   database:
     image: mongo
@@ -36,5 +40,10 @@ services:
     restart: always
     volumes:
         - ./mongodb_volume:/data/db
+    healthcheck:
+      test: [ "CMD-SHELL", "mongo --eval 'db.runCommand({ connectionStatus: 1 })'" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 

@@ -23,7 +23,7 @@ async function bootstrap() {
       exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   );
-
+    console.log({AAA:process.env.MONGO_URL_DEV})
   app.use(
     session({
       cookie: {

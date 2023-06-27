@@ -146,11 +146,10 @@ const History: FC<HistoryProps> = ({ serverData }) => {
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
-  console.log('SSR');
   const page = parseInt(queryParamToString(ctx.query.page || '1'));
   const data = await UserService.loadHistorySSR(
     page - 1,
-    cookiesTostring(ctx.req.cookies)
+    cookiesTostring(ctx.req.cookies as { [key: string]: string; })
   );
   return {
     props: {

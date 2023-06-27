@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { RecognitionService } from './recognition.service';
 import { EnhancedStore } from '@reduxjs/toolkit';
 import { AppDispatch } from '../store';
+import {authActions} from "@/store/slices/auth.slice";
 
 let store: EnhancedStore;
 export let dispatch: AppDispatch;
@@ -20,7 +21,7 @@ export const Api: AxiosInstance = axios.create({
 });
 
 Api.interceptors.response.use(function (response) {
-  return response.data;
+return response.data;
 });
 
 export const setToken = (token: string): void => {

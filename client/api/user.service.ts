@@ -5,7 +5,6 @@ import { Api } from './index';
 
 export const UserService = {
   async loadHistory(pageNumber: number = 0) {
-    console.log({ pageNumber });
     const data: UserHistoryResponseDto = await Api.get(
       `/users/user_history?page_number=${pageNumber}`
     );
@@ -13,7 +12,7 @@ export const UserService = {
   },
   async loadHistorySSR(pageNumber: number = 0, cookies: string) {
     const response = await fetch(
-      `http://server:1337/api/v1/users/user_history?page_number=${pageNumber}`,
+      `${process.env.SERVER}/users/user_history?page_number=${pageNumber}`,
       {
         credentials: 'include',
         headers: {

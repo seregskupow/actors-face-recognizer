@@ -20,16 +20,3 @@ export const RecognitionService = {
     return data;
   }
 };
-
-// try {
-// } catch (error) {
-//   dispatch(
-//     setMessage({
-//       msg:
-//         (error as AxiosError).response?.data.message ||
-//         (error as AxiosError).message,
-//       type: 'error'
-//     })
-//   );
-//   return { detectedActors: [], imgSrc: '' };
-// }

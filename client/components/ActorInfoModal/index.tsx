@@ -24,18 +24,7 @@ const ActorInfoModal: FC<ActorInfoModalProps> = ({ actorName }) => {
   const closeModal = () => {
     setClose(true);
     setTimeout(() => {
-      // console.log({ router });
       router.back();
-      // router.push(
-      //   {
-      //     pathname: '/history',
-      //     query: {
-      //       page: 2,
-      //     },
-      //   },
-      //   undefined,
-      //   { shallow: true }
-      // );
     }, opacityTransition + 100);
   };
   const closeModalBGHandler = (e: React.MouseEvent) => {

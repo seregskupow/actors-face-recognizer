@@ -1,13 +1,12 @@
-import { ActorsService } from '@/api';
-import ActorCard, { ActorLoaderCard } from '@/components/ActorCard';
-import { useActions } from '@/store/useActions';
-import { ActorInfo } from '@/types';
-import clsx from 'clsx';
-import { FC, useEffect, useState } from 'react';
-import Link from 'next/link';
-import useLoadersAmount from '@/hooks/useLoadersAmount';
-import styles from './foundActors.module.scss';
-import { ActorDto } from 'api/dto/actor.dto';
+import { ActorsService } from "@/api";
+import ActorCard, { ActorLoaderCard } from "@/components/ActorCard";
+import { useActions } from "@/store/useActions";
+import clsx from "clsx";
+import { FC, useEffect, useState } from "react";
+import Link from "next/link";
+import useLoadersAmount from "@/hooks/useLoadersAmount";
+import styles from "./foundActors.module.scss";
+import { ActorDto } from "api/dto/actor.dto";
 
 interface FoundActorsProps {
   names: Array<string>;
@@ -21,21 +20,18 @@ const FoundActors: FC<FoundActorsProps> = ({
   photo,
 }) => {
   const { setMessage } = useActions();
-  const loadersAmount = useLoadersAmount('ActorCard');
+  const loadersAmount = useLoadersAmount("ActorCard");
   const [loading, setLoading] = useState(true);
   const [foundActors, setFoundActors] = useState<ActorDto[]>([]);
   const fetchActors = async (names: string[]) => {
     try {
       setLoading(true);
       const data = await ActorsService.getActors(names);
-      console.log({ actors: data });
       setLoading(false);
       setFoundActors(data);
-      console.log({ foundActors });
     } catch (e) {
-      console.log(e);
       setLoading(false);
-      setMessage({ msg: 'Couldn`t find actor info', type: 'error' });
+      setMessage({ msg: "Couldn`t find actor info", type: "error" });
     }
   };
   useEffect(() => {
@@ -46,7 +42,7 @@ const FoundActors: FC<FoundActorsProps> = ({
 
   return (
     <div className={styles.FoundActors}>
-      <h2 className={clsx(styles.foundActorsTitle, 'mb-20')}>
+      <h2 className={clsx(styles.foundActorsTitle, "mb-20")}>
         Detected actors info:
       </h2>
       {recognitionFailed ? (
@@ -62,9 +58,10 @@ const FoundActors: FC<FoundActorsProps> = ({
           {foundActors.map((actor) => (
             <Link
               scroll={false}
+              shallow={true}
               key={actor.id}
-              href={`/facematch/?actor=${actor.name?.split(' ').join('_')}`}
-              as={`/actorinfo/${actor.name?.split(' ').join('_')}`}
+              href={`/facematch/?actor=${actor.name?.split(" ").join("_")}`}
+              as={`/actorinfo/${actor.name?.split(" ").join("_")}`}
             >
               <a>
                 <ActorCard {...actor} />
@@ -74,7 +71,7 @@ const FoundActors: FC<FoundActorsProps> = ({
         </div>
       ) : (
         <div className={styles.NotFoundWrapper}>
-          <h2>Could not find actorss</h2>
+          <h2>Could not find actor info</h2>
         </div>
       )}
     </div>

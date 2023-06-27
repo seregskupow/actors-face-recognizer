@@ -4,11 +4,8 @@ import {
   Logger,
   NotImplementedException,
 } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { parseOGMetatags } from '@utils/parseOG';
-import { Model, Types } from 'mongoose';
 import { Browser, Page } from 'puppeteer';
-import { of } from 'rxjs';
 import * as moment from 'moment';
 
 import {
@@ -179,7 +176,7 @@ export class ActorService {
       const photoElement = await page.$(PHOTO);
       if (photoElement)
         actor.photo =
-          (await (await photoElement.getProperty('src')).jsonValue()) || null;
+          (await (await photoElement.getProperty('src')).jsonValue()) as string || null;
 
       const birthDayElement = await page.$(BIRTHDAY);
       if (birthDayElement) {
